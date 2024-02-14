@@ -10,7 +10,7 @@ const btnValues = [
   ["0", ".", "="],
 ];
 
-const ButtonBox = () => {
+const ButtonBox = ({handleClick}) => {
   return (
     <div className="buttonBox">
       {btnValues.flat().map((btn, i) => {
@@ -19,9 +19,8 @@ const ButtonBox = () => {
                 <Button
                   className="eqbutton"
                   value={btn}
-                  onClick={() => {
-                    console.log(`Button ${btn} Clicked!`);
-                  }}
+                  onClick={handleClick}
+                  key = {i}
                 />
               );
         }
@@ -29,11 +28,10 @@ const ButtonBox = () => {
 
             return (
                 <Button
-                  className=""
+                  className="notequalbutton"
                   value={btn}
-                  onClick={() => {
-                    console.log(`Button ${btn} Clicked!`);
-                  }}
+                  onClick={handleClick}
+                  key = {i}
                 />
               );
         }
