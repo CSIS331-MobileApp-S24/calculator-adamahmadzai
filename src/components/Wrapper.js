@@ -12,53 +12,71 @@ const Wrapper = () => {
     if (num.toString().length <= 12) {
       num = num + btn;
       num = parseInt(num);
-      setNum(num);
     }
   };
-  const decClickHandler = (btn) => {
-    console.log("in decClickHandler");
+  let decClickHandler = (btn) => { 
+    if (!num.toString().includes(".")) {
+      // If it doesn't, append a decimal point
+      num = num + ".";
+  }
+    console.log("in dec click handler");
     console.log(btn);
-  };
+};
   const equalClickHandler = (btn) => {
-    console.log("in equalClickHandler");
-    console.log(btn);
+    if (oper === "+") {
+      res = res + num;
+    }
+    if (oper === "-") {
+      res = res - num;
+    }
+    if (oper === "*") {
+      res = res * num;
+    }
+    if (oper === "/") {
+      res = res / num;
+    }
+    num = 0;
+    oper = "";
   };
   const operClickHandler = (btn) => {
-
-    if (btn === "+"){
-        if(oper == ""){
-            oper = btn;
-            res = num;
-            num = 0;
-        }
+    if (oper == "") {
+      res = num;
+    } else {
+      if (oper === "+") {
         res = res + num;
-        num = 0;
-        
-
+      }
+      if (oper === "-") {
+        res = res - num;
+      }
+      if (oper === "*") {
+        res = res * num;
+      }
+      if (oper === "/") {
+        res = res / num;
+      }
     }
+    num = 0;
+    oper = btn;
     console.log("in operClickHandler");
     console.log(btn);
   };
   const percentClickHandler = (btn) => {
-    if(num.toString().length <12){
-        num = num /100;
-        console.log("in percentClickHandler");
-        console.log(btn);
-        setNum(num);
-
+    if (num.toString().length < 12) {
+      num = num / 100;
+      console.log("in percentClickHandler");
+      console.log(btn);
     }
-  
   };
   const invertClickHandler = (btn) => {
     num = num * -1;
     console.log("in invertClickHandler");
     console.log(btn);
-    setNum(num);
   };
   const resetClickHandler = (btn) => {
-  num = 0;
-  console.log("in resetClickHandler");
-    setNum(num);
+    num = 0;
+    res = 0;
+    oper = "";
+    console.log("in resetClickHandler");
   };
 
   let onButtonClick = (event) => {
@@ -96,6 +114,9 @@ const Wrapper = () => {
         numClickHandler(btn);
         break;
     }
+    setNum(num);
+    setOper(oper);
+    setRes(res);
     console.log("after the handlers");
     console.log("num: " + num);
     console.log("res: " + res);
@@ -104,7 +125,7 @@ const Wrapper = () => {
 
   return (
     <div className="wrapper bg-dark-gray pa2 br2">
-      <Screen value={num} />
+      <Screen value={num ? num : res} />
       <ButtonBox handleClick={onButtonClick} />
     </div>
   );
